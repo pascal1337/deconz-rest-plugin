@@ -113,6 +113,7 @@
 
 // Other HA devices
 #define DEV_ID_HA_WINDOW_COVERING_DEVICE    0x0202 // Window Covering Device
+#define DEV_ID_DOOR_LOCK                    0x000a // Door Lock
 //
 #define DEV_ID_IAS_ZONE                     0x0402 // IAS Zone
 #define DEV_ID_IAS_WARNING_DEVICE           0x0403 // IAS Warning Device
@@ -160,6 +161,7 @@
 #define OTAU_CLUSTER_ID                       0x0019
 #define GREEN_POWER_CLUSTER_ID                0x0021
 #define WINDOW_COVERING_CLUSTER_ID            0x0102
+#define DOOR_LOCK_CLUSTER_ID                  0x0101
 #define COLOR_CLUSTER_ID                      0x0300
 #define ILLUMINANCE_MEASUREMENT_CLUSTER_ID    0x0400
 #define ILLUMINANCE_LEVEL_SENSING_CLUSTER_ID  0x0401
@@ -240,6 +242,7 @@
 #define VENDOR_CENTRALITE   0x104E
 #define VENDOR_NYCE         0x10B9
 #define VENDOR_UBISYS       0x10F2
+#define VENDOR_DANALOCK     0x0101
 #define VENDOR_BEGA         0x1105
 #define VENDOR_PHYSICAL     0x110A // Used by SmartThings
 #define VENDOR_OSRAM        0x110C
@@ -1066,6 +1069,8 @@ public:
     bool addTaskIdentify(TaskItem &task, uint16_t identifyTime);
     bool addTaskTriggerEffect(TaskItem &task, uint8_t effectIdentifier);
     bool addTaskWarning(TaskItem &task, uint8_t options, uint16_t duration);
+    bool addTaskDoorLock(TaskItem &task);
+    bool addTaskDoorUnlock(TaskItem &task);
     bool addTaskAddToGroup(TaskItem &task, uint16_t groupId);
     bool addTaskViewGroup(TaskItem &task, uint16_t groupId);
     bool addTaskRemoveFromGroup(TaskItem &task, uint16_t groupId);
@@ -1093,6 +1098,7 @@ public:
     void handleDEClusterIndication(const deCONZ::ApsDataIndication &ind, deCONZ::ZclFrame &zclFrame);
     void handleXalClusterIndication(const deCONZ::ApsDataIndication &ind, deCONZ::ZclFrame &zclFrame);
     void handleWindowCoveringClusterIndication(const deCONZ::ApsDataIndication &ind, deCONZ::ZclFrame &zclFrame);
+    void handleDoorLockClusterIndication(const deCONZ::ApsDataIndication &ind, deCONZ::ZclFrame &zclFrame);
     void handleZclAttributeReportIndication(const deCONZ::ApsDataIndication &ind, deCONZ::ZclFrame &zclFrame);
     void handleZclConfigureReportingResponseIndication(const deCONZ::ApsDataIndication &ind, deCONZ::ZclFrame &zclFrame);
     void sendZclDefaultResponse(const deCONZ::ApsDataIndication &ind, deCONZ::ZclFrame &zclFrame, quint8 status);
