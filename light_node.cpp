@@ -105,6 +105,7 @@ void LightNode::setManufacturerCode(uint16_t code)
         case VENDOR_EMBER:   // fall through
         case VENDOR_120B:    m_manufacturer = QLatin1String("Heiman"); break;
         case VENDOR_KEEN_HOME: m_manufacturer = QLatin1String("Keen Home Inc"); break;
+        case VENDOR_DANALOCK: m_manufacturer = QLatin1String("Danalock"); break;
         default:
             m_manufacturer = QLatin1String("Unknown");
             break;
@@ -557,6 +558,7 @@ void LightNode::setHaEndpoint(const deCONZ::SimpleDescriptor &endpoint)
             case DEV_ID_IAS_WARNING_DEVICE:          removeItem(RStateOn);
                                                      ltype = QLatin1String("Warning device"); break;
             case DEV_ID_HA_WINDOW_COVERING_DEVICE:   ltype = QLatin1String("Window covering device"); break;
+            case DEV_ID_DOOR_LOCK:                   ltype = QLatin1String("Door Lock"); break;
             default:
                 break;
             }

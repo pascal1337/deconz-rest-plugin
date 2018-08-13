@@ -911,6 +911,76 @@ bool DeRestPluginPrivate::addTaskWarning(TaskItem &task, uint8_t options, uint16
     return addTask(task);
 }
 
+/*! Add door lock task to the queue.
+
+   \param task - the task item
+   \return true - on success
+           false - on error
+ */
+bool DeRestPluginPrivate::addTaskDoorLock(TaskItem &task)
+{
+    task.taskType = TaskDoorLock;
+
+    task.req.setClusterId(DOOR_LOCK_CLUSTER_ID);
+    task.req.setProfileId(HA_PROFILE_ID);
+
+    task.zclFrame.payload().clear();
+    task.zclFrame.setSequenceNumber(zclSeq++);
+    task.zclFrame.setCommandId(0x00); // Start Locking
+    task.zclFrame.setFrameControl(deCONZ::ZclFCClusterCommand |
+                             deCONZ::ZclFCDirectionClientToServer |
+                             deCONZ::ZclFCDisableDefaultResponse);
+
+    { // payload
+        QDataStream stream(&task.zclFrame.payload(), QIODevice::WriteOnly);
+        stream.setByteOrder(QDataStream::LittleEndian);
+    }
+
+    { // ZCL frame
+        task.req.asdu().clear(); // cleanup old request data if there is any
+        QDataStream stream(&task.req.asdu(), QIODevice::WriteOnly);
+        stream.setByteOrder(QDataStream::LittleEndian);
+        task.zclFrame.writeToStream(stream);
+    }
+
+    return addTask(task);
+}
+
+/*! Add door unlock task to the queue.
+
+   \param task - the task item
+   \return true - on success
+           false - on error
+ */
+bool DeRestPluginPrivate::addTaskDoorUnlock(TaskItem &task)
+{
+    task.taskType = TaskDoorUnlock;
+
+    task.req.setClusterId(DOOR_LOCK_CLUSTER_ID);
+    task.req.setProfileId(HA_PROFILE_ID);
+
+    task.zclFrame.payload().clear();
+    task.zclFrame.setSequenceNumber(zclSeq++);
+    task.zclFrame.setCommandId(0x01); // Start Unlocking
+    task.zclFrame.setFrameControl(deCONZ::ZclFCClusterCommand |
+                             deCONZ::ZclFCDirectionClientToServer |
+                             deCONZ::ZclFCDisableDefaultResponse);
+
+    { // payload
+        QDataStream stream(&task.zclFrame.payload(), QIODevice::WriteOnly);
+        stream.setByteOrder(QDataStream::LittleEndian);
+    }
+
+    { // ZCL frame
+        task.req.asdu().clear(); // cleanup old request data if there is any
+        QDataStream stream(&task.req.asdu(), QIODevice::WriteOnly);
+        stream.setByteOrder(QDataStream::LittleEndian);
+        task.zclFrame.writeToStream(stream);
+    }
+
+    return addTask(task);
+}
+
 /*! Add a add to group task to the queue.
 
    \param task - the task item

@@ -1158,6 +1158,9 @@ void DeRestPluginPrivate::checkLightBindingsForAttributeReporting(LightNode *lig
         else if (lightNode->manufacturerCode() == VENDOR_UBISYS)
         {
         }
+        else if (lightNode->manufacturerCode() == VENDOR_DANALOCK)
+        {
+        }
         else if (lightNode->manufacturerCode() == VENDOR_IKEA)
         {
         }
@@ -1327,6 +1330,8 @@ void DeRestPluginPrivate::checkSensorBindingsForAttributeReporting(Sensor *senso
         sensor->modelId().startsWith(QLatin1String("WATER_")) ||
         // Nimbus
         sensor->modelId().startsWith(QLatin1String("FLS-NB")) ||
+        // Danalock
+        sensor->modelId().startsWith(QLatin1String("V3")) ||
         // SmartThings
         sensor->modelId().startsWith(QLatin1String("tagv4")))
     {
