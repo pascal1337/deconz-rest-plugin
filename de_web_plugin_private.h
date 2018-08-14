@@ -495,7 +495,9 @@ enum TaskType
     TaskViewGroup = 32,
     TaskTriggerEffect = 33,
     TaskWarning = 34,
-    TaskIncBrightness = 35
+    TaskIncBrightness = 35,
+    TaskDoorLock = 36,
+    TaskDoorUnlock = 37
 };
 
 struct TaskItem
